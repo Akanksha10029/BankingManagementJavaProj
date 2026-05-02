@@ -34,7 +34,7 @@ public class BankServiceImpl implements BankService {
 	};
 	
 	private final Validation<String> validateAccountType = accountType -> {
-		if(accountType==null || accountType.isBlank() || !accountType.equalsIgnoreCase("SAVINGS") || !accountType.equalsIgnoreCase("CURRENT")) throw new ValidationException("Account Type should be either Savings or Current"); 
+		if(accountType==null || accountType.isBlank() || !accountType.equalsIgnoreCase("SAVINGS") && !accountType.equalsIgnoreCase("CURRENT")) throw new ValidationException("Account Type should be either Savings or Current"); 
 	};
 	
 	@Override

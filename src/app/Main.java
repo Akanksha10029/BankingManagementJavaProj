@@ -68,7 +68,7 @@ public class Main {
 				break;
 			}
 			catch (Exception e) {
-				System.out.println("❌ " + e.getMessage());
+				System.out.println("Error ❌ " + e.getMessage());
 			}
 		}		
 	}
@@ -100,7 +100,7 @@ public class Main {
 				break;
 			}
 			catch (Exception e) {
-	            System.out.println("❌ " + e.getMessage());
+	            System.out.println("Error ❌ " + e.getMessage());
 	        }
 		}
 	} 
@@ -132,7 +132,7 @@ public class Main {
 	    	    break;
 	    	}
 	    	catch (Exception e) {
-	            System.out.println("❌ " + e.getMessage());
+	            System.out.println("Error ❌ " + e.getMessage());
 	        }
 	    }
 	}
@@ -152,7 +152,7 @@ public class Main {
 	    	    break;
 	    	}
 	    	catch (Exception e) {
-	            System.out.println("❌ " + e.getMessage());
+	            System.out.println("Error ❌ " + e.getMessage());
 	        }
 	    }
 	}
