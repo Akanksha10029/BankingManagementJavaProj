@@ -10,6 +10,9 @@ import java.util.stream.Collectors;
 import domain.Account;
 import domain.Customer;
 import domain.Transaction;
+import exceptions.AccountNotFoundException;
+import exceptions.InsufficientFundsException;
+import exceptions.ValidationException;
 import repository.AccountRepository;
 import repository.CustomerRepository;
 import repository.TransactionRepository;
@@ -82,15 +85,15 @@ public class BankServiceImpl implements BankService {
 	public void transfer(String fromAccount, String toAccount, double amount, String note) {
 		// TODO Auto-generated method stub
 		if(fromAccount.equals(toAccount)) {
-			throw new RuntimeException("Cannot transfer to your own account! Kindly choose another account");
+			throw new ValidationException("Cannot transfer to your own account! Kindly choose another account");
 		}
 		Account from = accountRepository.findByAccountNumber(fromAccount);
-		if(from == null) throw new RuntimeException("Account not found" + fromAccount);
+		if(from == null) throw new AccountNotFoundException("Account not found" + fromAccount);
 		
 		Account to = accountRepository.findByAccountNumber(toAccount);
-		if(to == null) throw new RuntimeException("Account not found" + toAccount);
+		if(to == null) throw new AccountNotFoundException("Account not found" + toAccount);
 		
-		if(from.getBalance() < amount) throw new RuntimeException("Insufficient Balance");
+		if(from.getBalance() < amount) throw new InsufficientFundsException("Insufficient Balance");
 		
 		from.setBalance(from.getBalance() - amount);
 		to.setBalance(to.getBalance() + amount);
@@ -135,7 +138,5 @@ public class BankServiceImpl implements BankService {
 				.sorted(Comparator.comparing(Account::getAccountNumber))
 				.collect(Collectors.toList());
 	}
-
-
 
 }

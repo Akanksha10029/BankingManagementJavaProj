@@ -145,13 +145,5 @@ public class Main {
 	        account.getBalance() + " | " +
 	        account.getCustomerId()
 	    ));	}
-
-
-	
-
-
-	
-
-
 	
 }
