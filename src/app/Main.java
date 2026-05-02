@@ -45,85 +45,116 @@ public class Main {
 	}
 	
 	private static void openAccount(Scanner sc, BankService bankService) {
-		// TODO Auto-generated method stub
-		System.out.println("Customer name: ");
-		String name = sc.nextLine().trim();
-		System.out.println("Customer email: ");
-		String email = sc.nextLine().trim();
-		System.out.println("Account Type (SAVINGS/CURRENT): ");
-		String accountType = sc.nextLine().trim();
-		System.out.println("Initial deposit (optional, blank for 0)");
-		String amountStr = sc.nextLine().trim();
-		if(amountStr.isBlank() || amountStr.isEmpty()) {
-			amountStr = "0";
-		}
-		Double initial = Double.valueOf(amountStr);
-		String accountNumber = bankService.openAccount(name, email, accountType);
-		if(initial>0) {
-			bankService.deposit(accountNumber, initial, "Initial deposit");
-		}
-		System.out.println("Account opened: " + accountNumber);
 		
+		while(true) {
+			try {
+				System.out.println("Customer name: ");
+				String name = sc.nextLine().trim();
+				System.out.println("Customer email: ");
+				String email = sc.nextLine().trim();
+				System.out.println("Account Type (SAVINGS/CURRENT): ");
+				String accountType = sc.nextLine().trim();
+				System.out.println("Initial deposit (optional, blank for 0)");
+				String amountStr = sc.nextLine().trim();
+				if(amountStr.isBlank() || amountStr.isEmpty()) {
+					amountStr = "0";
+				}
+				Double initial = Double.valueOf(amountStr);
+				String accountNumber = bankService.openAccount(name, email, accountType);
+				if(initial>0) {
+					bankService.deposit(accountNumber, initial, "Initial deposit");
+				}
+				System.out.println("Account opened: " + accountNumber);
+				break;
+			}
+			catch (Exception e) {
+				System.out.println("❌ " + e.getMessage());
+			}
+		}		
 	}
 	
 	
 	private static void deposit(Scanner sc, BankService bankService) {
-		// TODO Auto-generated method stub
-		System.out.println("Account Number: ");
-		String accountNumber = sc.nextLine().trim();
 		
-		System.out.println("Amount: ");
-		double amount = Double.parseDouble(sc.nextLine().trim());
-		
-		boolean success = false;
-		try {
-			success = bankService.deposit(accountNumber, amount, "Deposit");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if(success) {
-			System.out.println("Deposited: " + amount);
-		}
-		else {
-			System.out.println("Error!!! Account not found!");
+		while(true) {
+			try {
+				System.out.println("Account Number: ");
+				String accountNumber = sc.nextLine().trim();
+				
+				System.out.println("Amount: ");
+				double amount = Double.parseDouble(sc.nextLine().trim());
+				
+				boolean success = false;
+				try {
+					success = bankService.deposit(accountNumber, amount, "Deposit");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if(success) {
+					System.out.println("Deposited: " + amount);
+				}
+				else {
+					System.out.println("Error!!! Account not found!");
+				}
+				break;
+			}
+			catch (Exception e) {
+	            System.out.println("❌ " + e.getMessage());
+	        }
 		}
 	} 
 	
 	private static void withdraw(Scanner sc, BankService bankService) {
-	    System.out.println("Account Number: ");
-	    String accountNumber = sc.nextLine().trim();
+	    while(true) {
+	    	try {
+	    		System.out.println("Account Number: ");
+	    	    String accountNumber = sc.nextLine().trim();
 
-	    System.out.println("Amount: ");
-	    double amount = Double.parseDouble(sc.nextLine().trim());
+	    	    System.out.println("Amount: ");
+	    	    double amount = Double.parseDouble(sc.nextLine().trim());
 
-	    String result = bankService.withdraw(accountNumber, amount, "Withdrawal");
+	    	    String result = bankService.withdraw(accountNumber, amount, "Withdrawal");
 
-	    switch(result) {
-	        case "SUCCESS":
-	            System.out.println("Withdrawn: " + amount);
-	            break;
-	        case "INSUFFICIENT":
-	            System.out.println("Insufficient Balance!!!");
-	            break;
-	        case "NOT_FOUND":
-	            System.out.println("Account not found!");
-	            break;
-	        default:
-	            System.out.println("Error processing request!");
+	    	    switch(result) {
+	    	        case "SUCCESS":
+	    	            System.out.println("Withdrawn: " + amount);
+	    	            break;
+	    	        case "INSUFFICIENT":
+	    	            System.out.println("Insufficient Balance!!!");
+	    	            break;
+	    	        case "NOT_FOUND":
+	    	            System.out.println("Account not found!");
+	    	            break;
+	    	        default:
+	    	            System.out.println("Error processing request!");
+	    	    }
+	    	    break;
+	    	}
+	    	catch (Exception e) {
+	            System.out.println("❌ " + e.getMessage());
+	        }
 	    }
 	}
 	
 	private static void transfer(Scanner sc, BankService bankService) {
-	    System.out.println("From Account: ");
-	    String fromAccount = sc.nextLine().trim();
-	    
-	    System.out.println("To Account: ");
-	    String toAccount = sc.nextLine().trim();
+	    while(true) {
+	    	try {
+	    		System.out.println("From Account: ");
+	    	    String fromAccount = sc.nextLine().trim();
+	    	    
+	    	    System.out.println("To Account: ");
+	    	    String toAccount = sc.nextLine().trim();
 
-	    System.out.println("Amount: ");
-	    double amount = Double.parseDouble(sc.nextLine().trim());
-	    bankService.transfer(fromAccount, toAccount, amount, "transfer");
+	    	    System.out.println("Amount: ");
+	    	    double amount = Double.parseDouble(sc.nextLine().trim());
+	    	    bankService.transfer(fromAccount, toAccount, amount, "transfer");
+	    	    break;
+	    	}
+	    	catch (Exception e) {
+	            System.out.println("❌ " + e.getMessage());
+	        }
+	    }
 	}
 
 	private static void statement(Scanner sc, BankService bankService) {
