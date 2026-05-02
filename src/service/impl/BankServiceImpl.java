@@ -17,6 +17,7 @@ import repository.AccountRepository;
 import repository.CustomerRepository;
 import repository.TransactionRepository;
 import service.BankService;
+import util.Validation;
 
 public class BankServiceImpl implements BankService {
 	
@@ -24,9 +25,26 @@ public class BankServiceImpl implements BankService {
 	private final TransactionRepository transactionRepository = new TransactionRepository();
 	private final CustomerRepository customerRepository = new CustomerRepository();
 	
+	private final Validation<String> validateName = name -> {
+		if(name==null || name.isBlank()) throw new ValidationException("Name can not be null or blank"); 
+	};
+	
+	private final Validation<String> validateEmail = email -> {
+		if(email==null || email.isBlank() || !email.contains("@")) throw new ValidationException("Kindly fill valid email"); 
+	};
+	
+	private final Validation<String> validateAccountType = accountType -> {
+		if(accountType==null || accountType.isBlank() || !accountType.equalsIgnoreCase("SAVINGS") || !accountType.equalsIgnoreCase("CURRENT")) throw new ValidationException("Account Type should be either Savings or Current"); 
+	};
+	
 	@Override
 	public String openAccount(String name, String email, String accountType) {
-		// TODO Auto-generated method stub
+		
+		// Validate name, email and accountType
+		validateName.validate(name);
+		validateEmail.validate(email);
+		validateAccountType.validate(accountType);
+		
 		String customerId = UUID.randomUUID().toString();
 		Customer customer = new Customer(customerId, name, email);
 		customerRepository.saveCustomer(customer);

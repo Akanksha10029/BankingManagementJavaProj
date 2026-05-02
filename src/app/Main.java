@@ -39,6 +39,7 @@ public class Main {
 			case "6" ->listAccounts(sc, bankService);
 			case "7" ->searchAccounts(sc, bankService);
 			case "0" -> running = false;	
+			default -> System.out.println("Invalid choice!");
 			}
 		}
 	}
@@ -53,6 +54,9 @@ public class Main {
 		String accountType = sc.nextLine().trim();
 		System.out.println("Initial deposit (optional, blank for 0)");
 		String amountStr = sc.nextLine().trim();
+		if(amountStr.isBlank() || amountStr.isEmpty()) {
+			amountStr = "0";
+		}
 		Double initial = Double.valueOf(amountStr);
 		String accountNumber = bankService.openAccount(name, email, accountType);
 		if(initial>0) {
